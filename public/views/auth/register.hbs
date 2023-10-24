@@ -1,0 +1,43 @@
+{{#> auth}}
+  {{#*inline "content"}}
+    <link rel="stylesheet" href="/css/auth/register.css">
+    <div class="regform">
+      <div class="form-heading">
+        {{ viewData.subtitle }}
+      </div>
+      <div class="form-body">
+        <form action="/auth/register" method="post">
+          <div class="names">
+            <div class="firstname">
+              <input type="text" name="firstname" id="firstname" placeholder="First Name">
+            </div>
+            <div class="lastname">
+              <input type="text" name="lastname" id="lastname" placeholder="Last Name">
+            </div>
+          </div>
+          <div>
+            <input type="email" name="email" id="email" placeholder="Email Address">
+          </div>
+          <div>
+            <input type="mobile" name="mobile" id="mobile" placeholder="Mobile Number">
+          </div>
+          <div>
+            <input type="text" name="profession" id="profession" placeholder="Profession">
+          </div>
+          <div>
+            <input type="password" name="password" id="password" placeholder="Password">
+          </div>
+          <div class="submit">
+            <input type="password" name="password" id="password" placeholder="Confirm Password">
+          </div>
+          <div>
+            <input type="submit" value="Register">
+          </div>
+          <div class="sign-in">
+            <p>Already have an account? <a href="/auth/login">Sign in</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  {{/inline}}
+{{/auth}}
