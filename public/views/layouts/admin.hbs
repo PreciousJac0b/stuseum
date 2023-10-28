@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{#if viewData.title}}{{ viewData.title }}{{else}}Admin - Stuseum{{/if}}</title>
+    <link rel="stylesheet" href="/css/layouts/admin.css">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <div class="img-header">
+            <img src="/images/stuseum-logo.svg" alt="">
+            <h1>Stuseum</h1>
+          </div>
+          <p>Admin</p>
+          <div class="line"></div>
+        </div>
+        <nav class="nav-buttons">
+          <ul>
+            <li><a href="admin/">Admin Home</a></li>
+            <li><a href="admin/">Admin Dashboard</a></li>
+            <li><a href="admin/">Manage Users</a></li>
+            <li><a href="admin/">Manage Books</a></li>
+            <li><a href="admin/">Issued Books</a></li>
+            <li><a href="admin/">Manage Orders</a></li>
+          </ul>
+        </nav>
+        <div class="home-button">
+          <a href="/">Return to Home Page</a>
+        </div>
+      </div>
+      <div class="content">
+        {{> content }}
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -7,7 +7,7 @@ import flash = require('connect-flash');
 import * as session from 'express-session';
 import * as hbs from 'hbs';
 import * as hbsUtils from 'hbs-utils';
-import * as passport from 'passport';
+// import * as passport from 'passport';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -25,9 +25,14 @@ async function bootstrap() {
     }),
   );
 
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(flash());
+  app.use(function (req, res, next) {
+    res.locals.session = req.session;
+    next();
+  });
+
+  // app.use(passport.initialize());
+  // app.use(passport.session());
+  // app.use(flash());
 
   await app.listen(3000);
 }

@@ -1,40 +1,38 @@
 import { Injectable } from '@nestjs/common';
-
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from '../models/user.entity';
+import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UsersService {
-  private readonly users: any[];
-
-  constructor() {
-    this.users = [
-      {
-        userId: 1,
-        username: 'john',
-        password: 'changeme',
-        pet: { name: 'alfred', picId: 1 },
-      },
-      {
-        userId: 2,
-        username: 'chris',
-        password: 'secret',
-        pet: { name: 'gopher', picId: 2 },
-      },
-      {
-        userId: 3,
-        username: 'maria',
-        password: 'guess',
-        pet: { name: 'jenny', picId: 3 },
-      },
-    ];
-  }
-  async findOne(username: string): Promise<any> {
-    return this.users.find(user => user.username === username);
+  constructor(
+    @InjectRepository(User)
+    private usersRepository: Repository<User>,
+  ) {}
+  
+  async createOrUpdate(user: User): Promise<User> {
+    const hash = await bcrypt.hash(user.getPassword(), 10);
+    user.setPassword(hash);
+    return this.usersRepository.save(user);
   }
 
-  addUser(user: any) {
-    this.users.push(user);
+  async login (email: string, password: string): Promise<User> {
+    const user = await this.usersRepository.findOneBy({emailAddress: email});
+    if (user) {
+      const isMatch = await bcrypt.compare(password, user.getPassword());
+      if (isMatch) {
+        return user;
+      }
+    }
+    return null;
   }
 
-  allUsers() {
-    return this.users;
+  async allUsers() {
+    return this.usersRepository.find();
+  }
+
+  findOne(emailAddress: string): Promise<User> {
+    return this.usersRepository.findOneBy({emailAddress: emailAddress})
   }
 }
+
