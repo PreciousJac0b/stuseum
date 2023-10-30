@@ -1,32 +1,31 @@
 {{#> admin}}
   {{#*inline "content"}}
-    <link rel="stylesheet" href="/css/admin/users.css">
-    <div class="admin-users">
-      <div class="user-table">
-        <div class="user-table-head">
-          <h2>Users List</h2>
-          <a href="/admin/users">Add User</a>
+    <link rel="stylesheet" href="/css/admin/books.css">
+    <div class="admin-books">
+      <div class="book-table">
+        <div class="book-table-head">
+          <h2>Books List</h2>
+          <a href="/admin/books">Add Book</a>
         </div>
-        <div class="user-table-table">
+        <div class="book-table-table">
           <table class="">
             <thead>
               <tr>
                 <th scope="col">ID</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">Role</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Code</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Delete</th>
               </tr>
             </thead>
-            <div class="tbody">
               <tbody>
-                {{#each viewData.users}}
+                {{#each viewData.books}}
                   <tr>
                     <td>{{getId}}</td>
-                    <td>{{getFirstName}}</td>
-                    <td>{{getLastName}}</td>
-                    <td>{{getRole}}</td>
+                    <td>{{getTitle}}</td>
+                    <td>{{getAuthor}}</td>
+                    <td>{{getCode}}</td>
                     <td><a class="btn btn-primary" href="/admin/users/{{getId}}">
                         <i class="bi-pencil"></i>
                       </a>
@@ -41,7 +40,6 @@
                   </tr>
                 {{/each}}
               </tbody>
-            </div>
           </table>
         </div>
       </div>
@@ -49,29 +47,26 @@
         <form action="/admin/users" method="post">
           <div class="names">
             <div class="firstname">
-              <input type="text" name="firstname" id="firstname" placeholder="First Name">
+              <input type="text" name="title" id="title" placeholder="Title">
             </div>
             <div class="lastname">
-              <input type="text" name="lastname" id="lastname" placeholder="Last Name">
+              <input type="text" name="author" id="author" placeholder="Author">
             </div>
           </div>
           <div>
-            <input type="email" name="email" id="email" placeholder="Email Address">
+            <input type="text" name="about" id="about" placeholder="Description">
           </div>
           <div>
-            <input type="mobile" name="mobile" id="mobile" placeholder="Mobile Number">
+            <input type="text" name="year" id="year" placeholder="Year Published">
           </div>
           <div>
-            <input type="text" name="profession" id="profession" placeholder="Profession">
+            <input type="text" name="genre" id="genre" placeholder="Genre">
           </div>
           <div>
-            <input type="password" name="password" id="password" placeholder="Password">
-          </div>
-          <div class="submit">
-            <input type="text" name="role" id="role" placeholder="Role">
+            <input type="file" name="image" id="image" placeholder="image">
           </div>
           <div>
-            <input type="submit" value="Create User">
+            <input type="submit" value="Create Book">
           </div>
         </form>
       </div>

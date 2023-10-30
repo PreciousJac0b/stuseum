@@ -6,6 +6,11 @@
   box-sizing: border-box;
 }
 
+/* body {
+  background: linear-gradient(180deg, #CC351A 0%, #99A13F 100%);
+  background-blend-mode: color-burn;
+} */
+
 .container {
   display: flex;
   height: 100vh;

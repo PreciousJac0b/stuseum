@@ -1,4 +1,5 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Body, Controller, Get, Post, Render, Req, Res } from '@nestjs/common';
+import { User } from 'src/models/user.entity';
 import { UsersService } from 'src/users/users.service';
 
 @Controller('admin')
@@ -10,7 +11,6 @@ export class AdminController {
   home() {
     const viewData = {};
     viewData['title'] = 'Admin - Stuseum'
-    viewData['users'] = this.usersService.allUsers();
     return {
       viewData
     }
@@ -18,11 +18,30 @@ export class AdminController {
 
   @Get('users')
   @Render('admin/users')
-  users() {
+  async users() {
     const viewData = {};
-    viewData['title'] = 'Admin - Stuseum Users'
+    viewData['title'] = 'Admin - Stuseum Users';
+    viewData['users'] = await this.usersService.allUsers();
     return {
       viewData
     }
   }
+
+  @Post('users')
+  async createUsers(@Body() body, @Res() res, @Req() req) {
+    if (!body) {
+      return res.redirect('admin/users')
+    }
+    const user = new User();
+    user.setFirstName(body.firstname);
+    user.setLastName(body.lastname);
+    user.setEmailAddress(body.email);
+    user.setMobileNumber(body.mobile);
+    user.setPassword(body.password);
+    user.setProfession(body.profession);
+    user.setRole(body.role);
+    await this.usersService.createOrUpdate(user);
+    return res.redirect(req.get('referer'));
+  }
+  
 }
