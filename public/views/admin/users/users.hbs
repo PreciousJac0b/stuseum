@@ -1,5 +1,8 @@
 {{#> admin}}
   {{#*inline "content"}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/admin/users.css">
     <div class="admin-users">
       <div class="user-table">
@@ -28,13 +31,13 @@
                     <td>{{getLastName}}</td>
                     <td>{{getRole}}</td>
                     <td><a class="btn btn-primary" href="/admin/users/{{getId}}">
-                        <i class="bi-pencil"></i>
+                      <i class="fa-regular fa-pen-to-square edit"></i>
                       </a>
                     </td>
                     <td>
                       <form action="/admin/users/{{getId}}" method="POST">
                         <button class="btn btn-danger">
-                          <i class="bi-trash"></i>
+                          <i class="fa-solid fa-user-xmark"></i>
                         </button>
                       </form>
                     </td>

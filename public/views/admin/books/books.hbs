@@ -1,5 +1,8 @@
 {{#> admin}}
   {{#*inline "content"}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/admin/books.css">
     <div class="admin-books">
       <div class="book-table">
@@ -19,32 +22,32 @@
                 <th scope="col">Delete</th>
               </tr>
             </thead>
-              <tbody>
-                {{#each viewData.books}}
-                  <tr>
-                    <td>{{getId}}</td>
-                    <td>{{getTitle}}</td>
-                    <td>{{getAuthor}}</td>
-                    <td>{{getCode}}</td>
-                    <td><a class="btn btn-primary" href="/admin/users/{{getId}}">
-                        <i class="bi-pencil"></i>
-                      </a>
-                    </td>
-                    <td>
-                      <form action="/admin/users/{{getId}}" method="POST">
-                        <button class="btn btn-danger">
-                          <i class="bi-trash"></i>
-                        </button>
-                      </form>
-                    </td>
-                  </tr>
-                {{/each}}
-              </tbody>
+            <tbody>
+              {{#each viewData.books}}
+                <tr>
+                  <td>{{getId}}</td>
+                  <td>{{getTitle}}</td>
+                  <td>{{getAuthor}}</td>
+                  <td>{{getCode}}</td>
+                  <td><a class="" href="/admin/books/{{getId}}">
+                      <i class="fa-regular fa-pen-to-square edit"></i>
+                    </a>
+                  </td>
+                  <td>
+                    <form action="/admin/books/{{getId}}" method="POST">
+                      <button class="">
+                        <i class="fa-solid fa-trash-can"></i>
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
           </table>
         </div>
       </div>
       <div class="form-body">
-        <form action="/admin/users" method="post">
+        <form action="/admin/books" method="post" enctype="multipart/form-data">
           <div class="names">
             <div class="firstname">
               <input type="text" name="title" id="title" placeholder="Title">
@@ -64,6 +67,9 @@
           </div>
           <div>
             <input type="file" name="image" id="image" placeholder="image">
+          </div>
+          <div>
+            <input type="text" name="code" id="code" placeholder="Code">
           </div>
           <div>
             <input type="submit" value="Create Book">

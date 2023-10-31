@@ -8,7 +8,7 @@ export class Book {
   @Column()
   title: string;
 
-  @Column()
+  @Column({ nullable: true })
   code: string;
 
   @Column()
@@ -26,7 +26,7 @@ export class Book {
   @Column({ default: 'available' })
   availability: string;
   
-  @Column()
+  @Column({ nullable: true, default: 'jpeg' })
   image: string;
 
   getId() {
@@ -81,7 +81,7 @@ export class Book {
   }
 
   setGenre(genre: string) {
-    return this.genre;
+    this.genre = genre;
   }
 
   getAvailability() {

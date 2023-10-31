@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Render, Req, Res } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Render, Req, Res } from '@nestjs/common';
 import { User } from 'src/models/user.entity';
 import { UsersService } from 'src/users/users.service';
 
@@ -17,7 +17,7 @@ export class AdminController {
   }
 
   @Get('users')
-  @Render('admin/users')
+  @Render('admin/users/users')
   async users() {
     const viewData = {};
     viewData['title'] = 'Admin - Stuseum Users';
@@ -43,5 +43,10 @@ export class AdminController {
     await this.usersService.createOrUpdate(user);
     return res.redirect(req.get('referer'));
   }
-  
+
+  @Post('users/:id')
+  async remove(@Res() res, @Req() req, @Param('id', ParseIntPipe) id: number) {
+   await this.usersService.remove(id);
+    res.redirect(req.get('referer'));
+  }  
 }

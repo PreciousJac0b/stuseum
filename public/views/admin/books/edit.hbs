@@ -1,0 +1,46 @@
+{{#> admin}}
+  {{#*inline "content"}}
+    <link rel="stylesheet" href="/css/admin/books/edit.css">
+    <div class="card">
+      <a href="#" onclick="history.go(-1)" >
+      <div class="modal">
+      </div>
+      </a>
+      <div class="form-body">
+        {{#with viewData.book}}
+          <form action="/admin/books" method="post" enctype="multipart/form-data">
+            <div class="card-header">
+              Edit book
+            </div>
+            <div class="names">
+              <div class="firstname">
+                <input type="text" name="title" id="title" placeholder="Title">
+              </div>
+              <div class="lastname">
+                <input type="text" name="author" id="author" placeholder="Author">
+              </div>
+            </div>
+            <div>
+              <input type="text" name="about" id="about" placeholder="Description">
+            </div>
+            <div>
+              <input type="text" name="year" id="year" placeholder="Year Published">
+            </div>
+            <div>
+              <input type="text" name="genre" id="genre" placeholder="Genre">
+            </div>
+            <div>
+              <input type="file" name="image" id="image" placeholder="image">
+            </div>
+            <div>
+              <input type="text" name="code" id="code" placeholder="Code">
+            </div>
+            <div>
+              <input type="submit" value="Create Book">
+            </div>
+          </form>
+        {{/with}}
+      </div>
+    </div>
+  {{/inline}}
+{{/admin}}

@@ -113,6 +113,11 @@ tr:hover {
 ::-webkit-scrollbar-track-piece {
   background: #ccc;
 }
+
+.edit {
+  color: #000;
+}
+
 /* Form  */
 
 .form-body {
