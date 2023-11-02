@@ -44,6 +44,19 @@ export class AdminController {
     return res.redirect(req.get('referer'));
   }
 
+  @Get('users/:id')
+  @Render('admin/users/edit')
+  async editUser(@Res() res, @Req() req, @Param('id', ParseIntPipe) id: number) {
+    const user = await this.usersService.findUserById(id);
+    const viewData = {};
+    viewData['title'] = 'Admin Page - Edit Users - Stuseum';
+    viewData['user'] = user;
+    return {
+      viewData
+    }
+
+  }
+
   @Post('users/:id')
   async remove(@Res() res, @Req() req, @Param('id', ParseIntPipe) id: number) {
    await this.usersService.remove(id);

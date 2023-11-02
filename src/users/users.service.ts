@@ -36,6 +36,10 @@ export class UsersService {
     return this.usersRepository.findOneBy({emailAddress: emailAddress})
   }
 
+  findUserById(id: number): Promise<User> {
+    return this.usersRepository.findOneBy({ id: id });
+  }
+
   async remove(id: number): Promise<void> {
     await this.usersRepository.delete(id);
   }
