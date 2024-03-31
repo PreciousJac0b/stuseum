@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{#if viewData.title}}{{ viewData.title }}{{else}}Stuseum{{/if}}</title>
+    <link rel="stylesheet" href="/css/layouts/user.css">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <div class="img-header">
+            <img src="/images/stuseum-logo.svg" alt="">
+            <h1>Stuseum</h1>
+          </div>
+          <div class="line"></div>
+        </div>
+        <nav class="nav-buttons">
+          <ul>
+            <li><a href="/users/home">Home</a></li>
+            <li><a href="/users/my-books">My Books</a></li>
+            <li><a href="/users/chat-room/">Chat Room</a></li>
+            <li><a href="/users/help-center/">Help Center</a></li>
+            <li><a href="/users/ai-support/">AI Support</a></li>
+            <li><a href="/users/developers/">Developers</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="content">
+        {{> content }}
+      </div>
+    </div>
+  </body>
+
+</html>

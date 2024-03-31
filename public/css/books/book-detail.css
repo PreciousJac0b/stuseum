@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Lexend+Deca&family=Red+Hat+Display:wght@500;700;900&display=swap');
+
+
+body {
+  background-color: #F9EADB;
+  max-height: 100vh;
+}
+
+
+.book-cover-about {
+  display: flex;
+  gap: 2.4rem;
+  margin-bottom: 1rem;
+  min-height: 50vh;
+  width: 100%;
+}
+
+.book-detail-arrow {
+  margin-top: 2rem;
+  display: flex;
+  gap: 3rem;
+}
+
+.book-detail {
+  margin-right: 3rem;
+  width: 100%;
+}
+
+.back-arrow {
+  margin-top: 1rem;
+}
+
+.book-title-about {
+  min-height: 50vh;
+  max-height: 52vh;
+  overflow-y: scroll;
+}
+
+.book-title {
+  color: #000;
+  font-family: Indie Flower;
+  font-size: 50px;
+  font-weight: 400;
+}
+
+
+.book-about {
+  color: #000;
+  font-family: Indie Flower;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.line {
+  height: 1px;
+  opacity: 0.5;
+  background: #000;
+  width: 90%;
+  margin: 0 auto;
+}
+
+
+.book-other-buttons {
+  display: flex;
+  gap: 2rem;
+  margin: 1rem 0;
+}
+
+.book-other > p {
+  color: #000;
+  font-family: Inter;
+  font-size: 25px;
+  font-weight: 400;
+  margin: 1rem 0;
+}
+
+.book-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+
+.book-buttons > a {
+  color: #FFF;
+  text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 400;
+  text-decoration: none;
+  padding: 0.4rem 1.4rem;
+  border-radius: 10px;
+  background: #66B2B2;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.75);
+  margin: 0.45rem 0;
+}
+
+.book-buttons .download {
+  background: #38F;
+  padding: 0.4rem 0.77rem;
+}

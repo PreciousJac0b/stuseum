@@ -14,20 +14,27 @@
 .container {
   display: flex;
   height: 100vh;
+  max-height: 100vh;
+  overflow-y: scroll;
 }
 
 .sidebar {
   width: 250px;
   background-color: #66B2B2;
-  color: #fff;  
+  color: #fff;
+  position: fixed;
+  height: 100%;
 }
 
 .sidebar .img-header {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 50px;
-  gap: 0.3rem;
+  margin: 10px 0;
+}
+
+.sidebar .img-header h1 {
+  font-family: Inter;
 }
 
 .sidebar .sidebar-header {
@@ -94,5 +101,6 @@
 
 .content {
   flex: 1; 
-  padding: 20px; 
+  padding: 20px;
+  margin-left: 250px;
 }

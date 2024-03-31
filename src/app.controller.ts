@@ -8,7 +8,7 @@ export class AppController {
   constructor() {}
 
   @Get('home')
-  @Render('user/home')
+  @Render('landing/home')
   getHello(@Req() req){
     return {
       session: {user: {firstname: req.session.user.firstname}},
@@ -17,7 +17,7 @@ export class AppController {
 
   @UseGuards(AuthenticatedGuard)
   @Get('/profile')
-  @Render('user/profile')
+  @Render('landing/profile')
   getProfile(@Request() req) {
     return {user: req.user};
   }

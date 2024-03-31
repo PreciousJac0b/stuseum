@@ -1,0 +1,79 @@
+.book-tile-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.book-tile {
+  padding: 20px;
+  /* background: #ff2345; */
+  /* box-shadow: 5px 5px #888888; */
+  margin-bottom: 5px;
+  box-shadow: 0 5px 25px 0 rgba(0, 0, 0, 0.25);
+} 
+
+.book-cover-image {
+  height: 250px;
+  width: 220px;
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.book-link {
+  text-decoration: none;
+  color: #101010;
+}
+
+book-link-div {
+  margin-bottom: 25px;
+
+}
+
+.book-cover-image > img {
+  height: 100%;
+  width: 80%;
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+.title-code {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.book-title {
+  font-size: 24px;
+  margin: 5px 0;
+}
+
+
+.author-year {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.book-author {
+  flex: 1;
+}
+
+.download {
+  color: #FFF;
+  text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 400;
+  text-decoration: none;
+  padding: 0.2rem 1.4rem;
+  border-radius: 10px;
+  background: #38F;
+  /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.75); */
+  /* margin: 0.45rem 0; */
+}
+
+.download-button {
+  margin-top: 20px;
+  text-align: center;
+}

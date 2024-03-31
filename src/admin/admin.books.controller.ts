@@ -9,9 +9,11 @@ import {
   Req,
   Res,
   UploadedFile,
+  UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { FilesInterceptor } from '@nestjs/platform-express';
 
 import { BooksService } from 'src/books/books.service';
 import { Book } from 'src/models/book.entity';
@@ -56,6 +58,41 @@ export class AdminBooksController {
     return res.redirect(req.get('referer'));
   }
 
+
+  @Post('/testt')
+  @UseInterceptors(FilesInterceptor('files')) // Start here
+  uploadFile(@UploadedFiles() files: Array<Express.Multer.File>) {
+    console.log(files);
+  }
+
+
+  //Test file upload for array of files
+
+  @Post('/test')
+  @UseInterceptors(FileInterceptor('image', { dest: './public/uploads' }))
+  async createBookss(
+    @Body() body,
+    @Res() res,
+    @Req() req,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    const book = new Book();
+    book.setId(body.id);
+    book.setTitle(body.title);
+    if (file) {
+      book.setImage(file.filename);
+    }
+    book.setAuthor(body.author);
+    book.setAbout(body.about);
+    book.setYearPublished(body.year);
+    book.setGenre(body.genre);
+    book.setCode(body.code);
+    await this.booksService.createOrUpdate(book);
+    console.log(req.get('referer'));
+    console.log(file);
+    return res.redirect(req.get('referer'));
+  }
+
   @Post('/:id')
   async remove(@Res() res, @Req() req, @Param('id', ParseIntPipe) id: number) {
     await this.booksService.remove(id);
@@ -65,7 +102,7 @@ export class AdminBooksController {
   @Get('/:id')
   @Render('admin/books/editt')
   async edit(@Param('id', ParseIntPipe) id: number) {
-    const book = await this.booksService.findOne(id);
+    const book = await this.booksService.findBookById(id);
     const viewData = {};
     viewData['title'] = 'Admin Page - Edit Books - Stuseum';
     viewData['book'] = book;
@@ -77,7 +114,7 @@ export class AdminBooksController {
   @Post('/:id/update')
   @UseInterceptors(FileInterceptor('image', { dest: './public/uploads' }))
   async updateBook(@Body() body, @Param('id', ParseIntPipe) id: number, @UploadedFile() file: Express.Multer.File, @Req() req, @Res() res) {
-    const book = await this.booksService.findOne(id);
+    const book = await this.booksService.findBookById(id);
     book.setTitle(body.title);
     if (file) {
       book.setImage(file.filename);
@@ -92,3 +129,4 @@ export class AdminBooksController {
     return res.redirect('/admin/books/');
   }
 }
+

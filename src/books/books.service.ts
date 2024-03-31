@@ -15,7 +15,7 @@ export class BooksService {
     return this.booksRepository.find()
   }
 
-  async findOne(id: number): Promise<Book> {
+  async findBookById(id: number): Promise<Book> {
     return this.booksRepository.findOneBy({id: id});
   }
 

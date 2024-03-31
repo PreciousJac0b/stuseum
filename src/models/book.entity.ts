@@ -37,7 +37,7 @@ export class Book {
     this.id = id;
   }
 
-  getTitle() {
+  getTitle(): string {
     return this.title;
   }
 

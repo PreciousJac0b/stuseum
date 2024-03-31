@@ -1,0 +1,40 @@
+{{#> user}}
+  {{#*inline "content"}}
+    <link rel="stylesheet" href="/css/books/book-detail.css">
+    {{#with viewData.book}}
+      <div class="book-detail-arrow">
+        <div class="back-arrow">
+          <a href="">
+          <img src="/images/arrow-1.png" alt="Go Back">
+          </a>
+        </div>
+        <div class="book-detail">
+          <div class="book-cover-about">
+            <div class="book-cover">
+              <img src="/uploads/{{getImage}}" alt="Book Cover">
+            </div>
+            <div class="book-title-about">
+              <p class="book-title">{{ getTitle }}</p>
+              <p class="book-about">{{ getAbout }}
+              </p>
+            </div>
+          </div>
+          <div class="line"></div>
+          <div class="book-other-buttons">
+            <div class="book-other">
+              <p>Author: {{ getAuthor }}</p>
+              <p>Year Published: {{ getYearPublished }}</p>
+              <p>Genre: {{ getGenre }}</p>
+              <p>Book Availability: {{ getAvailability }}</p>
+            </div>
+            <div class="book-buttons">
+              <a class="review" href="#">Review Book</a><br>
+              <a class="download" href="#">Download Book</a><br>
+              <a class="license" href="#">Book License</a><br>
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/with}}
+  {{/inline}}
+{{/user}}
