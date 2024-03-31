@@ -230,3 +230,13 @@ input:focus {
 .form-body-login input {
   margin-bottom: 2rem;
 }
+
+.labels > label {
+  font-family: inter;
+  font-size: 14px;
+  padding-bottom: 3px;
+}
+
+.labels input {
+  margin-top: 3px;
+}

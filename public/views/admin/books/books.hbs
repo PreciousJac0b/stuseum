@@ -47,7 +47,7 @@
         </div>
       </div>
       <div class="form-body">
-        <form action="/admin/books/test" method="post" enctype="multipart/form-data">
+        <form action="/admin/books" method="post" enctype="multipart/form-data">
           <div class="names">
             <div class="firstname">
               <input type="text" name="title" id="title" placeholder="Title">
@@ -65,11 +65,13 @@
           <div>
             <input type="text" name="genre" id="genre" placeholder="Genre">
           </div>
-          <div>
-            <input type="file" name="image" id="image" placeholder="image">
+          <div class="book-cover labels">
+            <label for="image">Upload Book Cover</label>
+            <input type="file" name="bookcover" id="image" placeholder="bookcover">
           </div>
-          <div>
-            <input type="file" name="image" id="image" placeholder="image">
+          <div class="labels">
+            <label for="image">Upload Book Pdf</label>
+            <input type="file" name="bookpdf" id="image" placeholder="bookpdf">
           </div>
           <div>
             <input type="text" name="code" id="code" placeholder="Code">

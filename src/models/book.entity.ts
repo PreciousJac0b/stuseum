@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity('books')
+@Entity('bookss')
 export class Book {
   @PrimaryGeneratedColumn()
   id: number;
@@ -28,6 +28,9 @@ export class Book {
   
   @Column({ nullable: true, default: 'jpeg' })
   image: string;
+
+  @Column({ nullable: true, default: 'pdf'})
+  pdf: string;
 
   getId() {
     return this.id;
@@ -98,5 +101,13 @@ export class Book {
 
   setImage(img: string) {
     this.image = img;
+  }
+
+  getPdf() {
+    return this.pdf;
+  }
+
+  setPdf(pdf: string) {
+    this.pdf = pdf;
   }
 }
