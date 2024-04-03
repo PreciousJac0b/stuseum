@@ -1,8 +1,10 @@
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Render, Req, Res } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { User } from 'src/models/user.entity';
 import { UsersService } from 'src/users/users.service';
 
 @Controller('admin')
+@ApiTags('admin-users')
 export class AdminController {
   constructor(private readonly usersService: UsersService) {}
 

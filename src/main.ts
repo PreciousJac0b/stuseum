@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import flash = require('connect-flash');
 import * as session from 'express-session';
@@ -14,8 +15,18 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'public/views'));
   hbs.registerPartials(join(__dirname, '..', 'public/views/layouts'));
-  hbsUtils(hbs).registerWatchedPartials(join(__dirname, '..', 'public/views/layouts'));
+  hbsUtils(hbs).registerWatchedPartials(
+    join(__dirname, '..', 'public/views/layouts'),
+  );
   app.setViewEngine('hbs');
+
+  const config = new DocumentBuilder()
+    .setTitle('NestJS Swagger')
+    .setDescription('API description')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
 
   app.use(
     session({

@@ -20,8 +20,10 @@ import { Book } from 'src/models/book.entity';
 import { diskStorage } from 'multer';
 import * as path from 'path';
 import * as fs from 'fs';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('admin/books')
+@ApiTags('admin-books')
 export class AdminBooksController {
   constructor(private readonly booksService: BooksService) {}
 
