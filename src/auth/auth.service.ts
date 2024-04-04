@@ -1,26 +1,33 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcrypt';
+import { LoginDTO } from './dtos/login.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private usersService: UsersService, private jwtService: JwtService) {}
 
-  async validateUser(email: string, pass: string): Promise<any> {
-    const user = await this.usersService.findOne(email);
-    console.log('Got to auth service');
+  async login(loginDTO: LoginDTO): Promise<{ accessToken: string }> {
+    const user = await this.usersService.findOne(loginDTO);
+
     if (user) {
-      const isMatch = await bcrypt.compare(pass, user.getPassword());
-      if (isMatch) {
-        const {password, confirmPassword, ...result} = user;
-        console.log('is Match from authservice')
-        return result;
+      const passwordMatched = await bcrypt.compare(loginDTO.password, user.password);
+
+      if (passwordMatched) {
+        const {password, ...userResult} = user;
+        console.log("Password: ", password);
+        const payload = { email: userResult.email, sub: userResult.id }
+        console.log(payload);
+        const payload2 = this.jwtService.sign(payload);
+        console.log(payload2);
+        return {
+          accessToken: payload2,
+        };
       } else {
-        console.log('not match from authservice');
+        throw new UnauthorizedException("Password does not match");
       }
-    } else {
-      console.log("User doesn't exist");
     }
-    return null;
+    throw new UnauthorizedException("User does not exist");
   }
 }

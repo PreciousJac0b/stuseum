@@ -36,15 +36,15 @@
                 <input type="file" name="profile-image" id="profile-image" value="{{getProfileImage}}" placeholder="Profile Picture">
               </div>
               <div>
-                <label for="code">Book Code</label><br>
-                <input type="text" name="code" id="code" value="{{getCode}}" placeholder="Code">
+                <label for="code">Role</label><br>
+                <input type="text" name="role" id="role" value="{{getRole}}" placeholder="Role">
               </div>
               <div>
-                <label for="availability">Availability</label><br>
-                <input type="text" name="availability" id="availability" value="{{#if getAvailability}}{{getAvailability}}{{else}}Not Defined{{/if}}" placeholder="Availability">
+                <label for="availability">Password</label><br>
+                <input type="text" name="password" id="password" value="" placeholder="password">
               </div>
               <div>
-                <input type="submit" value="Update Book">
+                <input type="submit" value="Update User">
               </div>
             </form>
           {{/with}}

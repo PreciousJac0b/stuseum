@@ -13,11 +13,11 @@ import { BooksModule } from './books/books.module';
     "username": "testuser",
     "password": "testuser123",
     "port": 3306,
-    "database": "LMS",
+    "database": "lms", // Keep it lowercase, matching that in the SQL database
     "entities": [
       "dist/**/*.entity{.ts,.js}"
     ],
-    "synchronize": false
+    "synchronize": true
   }), BooksModule],
   controllers: [AppController],
   providers: [],

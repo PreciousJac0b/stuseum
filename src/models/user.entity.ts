@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { IsEmail } from 'class-validator';
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -12,14 +13,15 @@ export class User {
   @Column()
   lastName: string;
 
-  @Column()
+  @Column({ unique: true })
   @IsEmail()
-  emailAddress: string;
+  email: string;
 
   @Column()
   mobileNumber: string;
 
   @Column()
+  @Exclude()
   profession: string;
 
   @Column()
@@ -72,12 +74,12 @@ export class User {
     this.lastName = lastname;
   }
 
-  getEmailAddress(): string {
-    return this.emailAddress;
+  getEmail(): string {
+    return this.email;
   }
 
-  setEmailAddress(email: string) {
-    this.emailAddress = email;
+  setEmail(email: string) {
+    this.email = email;
   }
 
   getMobileNumber(): string {

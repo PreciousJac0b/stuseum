@@ -1,21 +1,20 @@
 import { Controller, Get, Redirect, Render, Req, Request, Res, UseFilters, UseGuards } from '@nestjs/common';
-import { AuthenticatedGuard } from './common/guards/authenticated.guard';
-import { AuthExceptionFilter } from './common/filters/auth-exceptions.filter';
+import { JwtAuthGuard } from './auth/jwt.guard';
 
 @Controller()
-@UseFilters(AuthExceptionFilter)
 export class AppController {
   constructor() {}
 
   @Get('home')
   @Render('landing/home')
-  getHello(@Req() req){
+  @UseGuards(JwtAuthGuard)
+  getHello(@Request() req){
     return {
-      session: {user: {firstname: req.session.user.firstname}},
+      user: req.user,
     };
   }
 
-  @UseGuards(AuthenticatedGuard)
+  // @UseGuards(AuthenticatedGuard)
   @Get('/profile')
   @Render('landing/profile')
   getProfile(@Request() req) {

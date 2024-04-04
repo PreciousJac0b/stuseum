@@ -1,7 +1,9 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Render, Req, Res } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Render, Req, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from 'src/models/user.entity';
 import { UsersService } from 'src/users/users.service';
+import * as bcrypt from 'bcrypt';
 
 @Controller('admin')
 @ApiTags('admin-users')
@@ -37,7 +39,7 @@ export class AdminController {
     const user = new User();
     user.setFirstName(body.firstname);
     user.setLastName(body.lastname);
-    user.setEmailAddress(body.email);
+    user.setEmail(body.email);
     user.setMobileNumber(body.mobile);
     user.setPassword(body.password);
     user.setProfession(body.profession);
@@ -63,5 +65,24 @@ export class AdminController {
   async remove(@Res() res, @Req() req, @Param('id', ParseIntPipe) id: number) {
    await this.usersService.remove(id);
     res.redirect(req.get('referer'));
-  }  
+  }
+
+  @Post('users/:id/update')
+  @UseInterceptors(FileInterceptor('image', { dest: './public/uploads/profilepic' }))
+  async updateBook(@Body() body, @Param('id', ParseIntPipe) id: number, @UploadedFile() file: Express.Multer.File, @Res() res) {
+    const user = await this.usersService.findUserById(id);
+    user.setFirstName(body.firstname);
+    if (file) {
+      user.setProfileImage(file.filename);
+    }
+    user.setLastName(body.lastname);
+    user.setProfession(body.profession);
+    user.setRole(body.role);
+    user.setEmail(body.email);
+    const hash = await bcrypt.hash(body.password, 10);
+    user.setPassword(hash);
+    user.setMobileNumber(body.mobile);
+    await this.usersService.createOrUpdate(user);
+    return res.redirect('/admin/users/');
+  }
 }
