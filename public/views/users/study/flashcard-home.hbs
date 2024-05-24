@@ -1,0 +1,30 @@
+{{#> user}}
+  {{#*inline "content"}}
+    <link rel="stylesheet" href="/css/study/flashcard-home.css">
+    <div class="flash-home">
+      <div class="flash-title">
+        <div class="flash-img">
+          <img src="/images/study/flashcard.png" alt="">
+        </div>
+        {{viewData.title}}
+      </div>
+      <div class="form-body">
+        <form action="/users/study/flashcards" method="post">
+          <h2 class="form-title">Add a Flashcard</h2>
+          <div class="question">
+            <label for="question">Flash Question</label>
+            <input type="text" name="question" id="question" placeholder="Add a question">
+          </div>
+          <div class="answer">
+            <label for="answer">Flash Answer</label>
+            <input type="text" name="answer" id="answer" placeholder="What's the answer?">
+          </div>
+          
+          <div class="flash-submit">
+            <input type="submit">
+          </div>
+        </form>
+      </div>
+    </div>
+  {{/inline}}
+{{/user}}

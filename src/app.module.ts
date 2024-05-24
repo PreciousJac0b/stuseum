@@ -5,6 +5,8 @@ import { UsersModule } from './users/users.module';
 import { AdminModule } from './admin/admin.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BooksModule } from './books/books.module';
+import { StudyController } from './study/study.controller';
+import { StudyModule } from './study/study.module';
 
 @Module({
   imports: [AuthModule, UsersModule, AdminModule, TypeOrmModule.forRoot({
@@ -18,7 +20,7 @@ import { BooksModule } from './books/books.module';
       "dist/**/*.entity{.ts,.js}"
     ],
     "synchronize": true
-  }), BooksModule],
+  }), BooksModule, StudyModule],
   controllers: [AppController],
   providers: [],
 })

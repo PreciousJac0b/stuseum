@@ -1,0 +1,21 @@
+{{#> user}}
+  {{#*inline "content"}}
+    <link rel="stylesheet" href="/css/study/study.css">
+      <div class="study-tile-list">
+        {{#each viewData}}
+          <div class="study-tile">
+            <div class="study-link-div">
+              <a href="/users/study/{{this.link}}" class="study-link">
+                <div class="study-cover-image">
+                  <img src="/images/study/{{this.icon}}" alt="Study Technique Icon">
+                </div>
+                <div class="title-div">
+                  <p class="title-text">{{this.title}}</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+  {{/inline}}
+{{/user}}

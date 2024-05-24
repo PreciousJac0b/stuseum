@@ -25,12 +25,23 @@
             <li><a href="/users/chat-room/">Chat Room</a></li>
             <li><a href="/users/help-center/">Help Center</a></li>
             <li><a href="/users/ai-support/">AI Support</a></li>
+            <li><a href="/users/study/">Study Techniques</a></li>
             <li><a href="/users/developers/">Developers</a></li>
           </ul>
         </nav>
       </div>
       <div class="content">
-        {{> content }}
+        <div class="nav-bar">
+          <form action="/search" method="GET">
+            <input type="text" name="q" placeholder="Search Anything...">
+          </form>
+          <div class="profile-icon">
+            <p>Username</p>
+          </div>
+        </div>
+        <div class="user-content">
+          {{> content }}
+        </div>
       </div>
     </div>
   </body>

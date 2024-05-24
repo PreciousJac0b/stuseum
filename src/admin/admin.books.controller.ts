@@ -16,7 +16,6 @@ import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express
 import { FilesInterceptor } from '@nestjs/platform-express';
 
 import { BooksService } from 'src/books/books.service';
-import { Book } from 'src/models/book.entity';
 import { diskStorage } from 'multer';
 import * as path from 'path';
 import * as fs from 'fs';
@@ -38,38 +37,6 @@ export class AdminBooksController {
     };
   }
 
-  @Post('template')
-  @UseInterceptors(FileInterceptor('image', 
-  { storage: diskStorage({
-    destination: './public/uploads/books',
-    filename: (req, file, cb) => {
-      cb(null, file.originalname);
-    }
-  }) }))
-  async createBooks(
-    @Body() body,
-    @Res() res,
-    @Req() req,
-    @UploadedFile() file: Express.Multer.File,
-  ) {
-    const book = new Book();
-    book.setId(body.id);
-    book.setTitle(body.title);
-    if (file) {
-      book.setImage(file.filename);
-    }
-    book.setAuthor(body.author);
-    book.setAbout(body.about);
-    book.setYearPublished(body.year);
-    book.setGenre(body.genre);
-    book.setCode(body.code);
-    await this.booksService.createOrUpdate(book);
-    console.log(req.get('referer'));
-    console.log(file);
-    console.log("I am the one being called")
-    return res.redirect(req.get('referer'));
-  }
-
 
   @Post('/testt')
   @UseInterceptors(FilesInterceptor('files')) // Start here
@@ -78,7 +45,7 @@ export class AdminBooksController {
   }
 
 
-  // File upload for array of files
+  // File upload for multiple files.
 
    @Post('')
    @UseInterceptors(FileFieldsInterceptor([
@@ -91,7 +58,6 @@ export class AdminBooksController {
 
         const fieldname = file.fieldname;
         let destination;
-        const currentPath = __dirname;
 
         if (fieldname === "bookcover") {
           destination = './public/uploads/books/bookcovers';
@@ -107,39 +73,18 @@ export class AdminBooksController {
       }
       , 
       filename: (req, file, cb) => {
-        console.log("File original name", file.originalname)
         cb(null, file.originalname)
       }
     })
   }))
 
-  async createBookss(
+  async createBook(
     @Body() body,
     @Res() res,
     @Req() req,
     @UploadedFiles() files: {bookcover?: Express.Multer.File[], bookpdf?: Express.Multer.File[]},
   ) {
-    const book = new Book();
-    book.setId(body.id);
-    book.setTitle(body.title);
-    if (files && files.bookcover && files.bookcover.length > 0) {
-      const bookcover = files.bookcover[0];
-      book.setImage(bookcover.filename);
-    }
-
-    if (files && files.bookpdf && files.bookpdf.length > 0) {
-      const bookpdf = files.bookpdf[0];
-      book.setPdf(bookpdf.filename);
-    }
-
-    book.setAuthor(body.author);
-    book.setAbout(body.about);
-    book.setYearPublished(body.year);
-    book.setGenre(body.genre);
-    book.setCode(body.code);
-    await this.booksService.createOrUpdate(book);
-    console.log(req.get('referer'));
-    console.log(files);
+    await this.booksService.createBook(body, files);
     return res.redirect(req.get('referer'));
   }
 
@@ -162,20 +107,40 @@ export class AdminBooksController {
   }
 
   @Post('/:id/update')
-  @UseInterceptors(FileInterceptor('image', { dest: './public/uploads' }))
-  async updateBook(@Body() body, @Param('id', ParseIntPipe) id: number, @UploadedFile() file: Express.Multer.File, @Req() req, @Res() res) {
-    const book = await this.booksService.findBookById(id);
-    book.setTitle(body.title);
-    if (file) {
-      book.setImage(file.filename);
-    }
-    book.setAuthor(body.author);
-    book.setAbout(body.about);
-    book.setYearPublished(body.year);
-    book.setGenre(body.genre);
-    book.setCode(body.code);
-    book.setAvailability(body.availability);
-    await this.booksService.createOrUpdate(book);
+  @UseInterceptors(FileFieldsInterceptor([
+    {name: 'bookcover', maxCount: 1},
+    {name: 'bookpdf', maxCount: 1},
+  ], 
+  {
+    storage: diskStorage({
+      destination: (req, file, cb) => {
+
+        const fieldname = file.fieldname;
+        let destination;
+
+        if (fieldname === "bookcover") {
+          destination = './public/uploads/books/bookcovers';
+        }
+        else if (fieldname === "bookpdf") {
+          destination = './public/uploads/books/bookpdf';
+        } else {
+          destination = './public/uploads/books';
+        }
+        // It apparently can't create the directory itself so we make the directory before storing the file.
+        fs.mkdirSync(destination, { recursive: true });
+        cb(null, destination);
+      }
+      , 
+      filename: (req, file, cb) => {
+        cb(null, file.originalname)
+      }
+    })
+  }))
+
+  async updateBook(@Body() body, @Param('id', ParseIntPipe) id: number, @UploadedFiles() files: {bookcover?: Express.Multer.File[], bookpdf?: Express.Multer.File[]}, @Req() req, @Res() res) {
+    
+
+    await this.booksService.update(id, body, files);
     return res.redirect('/admin/books/');
   }
 }

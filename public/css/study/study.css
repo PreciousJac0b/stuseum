@@ -1,0 +1,54 @@
+.study-tile-list {
+  display: grid;
+  height: 100vh;
+  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+book-link-div {
+  margin-bottom: 25px;
+
+}
+
+.study-cover-image {
+  height: 250px;
+  width: 220px;
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.study-cover-image > img {
+  height: 100%;
+  width: 80%;
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+.study-tile {
+  padding: 20px;
+  margin-bottom: 5px;
+  box-shadow: 0 5px 25px 0 rgba(0, 0, 0, 0.25);
+} 
+
+.study-link {
+  text-decoration: none;
+  color: #101010;
+}
+
+/* .study-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  height: 100vh;
+  align-items: center;
+} */
+
+.title-text {
+  font-family: inter;
+  font-size: 20px;
+}
+
+.title-div {
+  text-align: center;
+}

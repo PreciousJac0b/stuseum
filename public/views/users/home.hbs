@@ -1,6 +1,37 @@
 {{#> user}}
   {{#*inline "content"}}
+  <link rel="stylesheet" href="/css/search/search.css">
     <h2>Stuseum - Students' Museum</h2>
     <p>A hub for all things book!</p>
+
+    <p>----------------------------------------------</p>
+    {{#if viewData.books}}
+      <div class="book-tile-list">
+        {{#each viewData.books}}
+          <div class="book-tile">
+            <div class="book-link-div">
+              <a href="/users/books/{{getId}}" class="book-link">
+                <div class="book-cover-image">
+                  <img src="/uploads/books/bookcovers/{{getImage}}" alt="Book Cover">
+                </div>
+                <div>
+                  <div class="title-code">
+                    <p class="book-title">{{getTitle}}</p>
+                    <p class="book-code">{{getCode}}</p>
+                  </div>
+                  <div class="author-year">
+                    <p class="book-author">By {{getAuthor}}</p>
+                    <p class="book-year">Year: {{getYearPublished}}</p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <form class="download-button" action="/books/download-pdf/{{getId}}">
+              <input class="download" type="submit" value="Download Book">
+            </form>
+          </div>
+        {{/each}}
+      </div>
+    {{/if}}
   {{/inline}}
 {{/user}}

@@ -1,10 +1,20 @@
-import { Controller, Get, Param, ParseIntPipe, Render, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Render,
+  Req,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { BooksService } from 'src/books/books.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService, private readonly booksService: BooksService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly booksService: BooksService,
+  ) {}
   @Get('home')
   @Render('users/home')
   async homePage(@Req() req) {
@@ -13,8 +23,8 @@ export class UsersController {
     const viewData = {};
     viewData['title'] = 'Home Page - Stuseum';
     return {
-      viewData
-    }
+      viewData,
+    };
   }
 
   @Get('my-books')
@@ -24,8 +34,8 @@ export class UsersController {
     viewData['title'] = 'My Books - Stuseum';
     viewData['books'] = await this.booksService.findAll();
     return {
-      viewData
-    }
+      viewData,
+    };
   }
 
   @Get('books/:id')
@@ -35,7 +45,9 @@ export class UsersController {
     viewData['title'] = 'Book Detail - Stuseum';
     viewData['book'] = await this.booksService.findBookById(id);
     return {
-      viewData
-    }
-  } 
+      viewData,
+    };
+  }
+
+
 }
