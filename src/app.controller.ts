@@ -1,5 +1,5 @@
 import { Controller, Get, Query, Redirect, Render, Req, Request, Res, UseFilters, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from './auth/jwt.guard';
+// import { JwtAuthGuard } from './auth/jwt.guard';
 import { BooksService } from './books/books.service';
 
 @Controller()
@@ -8,7 +8,7 @@ export class AppController {
 
   @Get('home')
   @Render('landing/home')
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   getHello(@Request() req){
     return {
       user: req.user,

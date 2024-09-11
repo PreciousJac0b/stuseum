@@ -1,6 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Comments } from "./comment.entity";
+import { User } from "./user.entity";
 
-@Entity('bookss')
+@Entity('books')
 export class Book {
   @PrimaryGeneratedColumn()
   id: number;
@@ -31,6 +33,13 @@ export class Book {
 
   @Column({ nullable: true, default: 'pdf'})
   pdf: string;
+
+  @ManyToOne(() => User, (user) => user.books)
+  user: User;
+
+  @OneToMany(() => Comments, comments => comments.book)
+  comments: Comments[];
+
 
   getId() {
     return this.id;
@@ -109,5 +118,13 @@ export class Book {
 
   setPdf(pdf: string) {
     this.pdf = pdf;
+  }
+
+  getUser() {
+    return this.user;
+  }
+
+  setUser(user: User) {
+    this.user = user;
   }
 }

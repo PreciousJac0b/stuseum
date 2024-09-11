@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { AdminModule } from './admin/admin.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BooksModule } from './books/books.module';
 import { StudyController } from './study/study.controller';
 import { StudyModule } from './study/study.module';
+import { CommentModule } from './comment/comment.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [AuthModule, UsersModule, AdminModule, TypeOrmModule.forRoot({
@@ -20,7 +21,7 @@ import { StudyModule } from './study/study.module';
       "dist/**/*.entity{.ts,.js}"
     ],
     "synchronize": true
-  }), BooksModule, StudyModule],
+  }), BooksModule, StudyModule, CommentModule],
   controllers: [AppController],
   providers: [],
 })

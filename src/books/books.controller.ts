@@ -15,22 +15,8 @@ export class BooksController {
       const bookName = book.getPdf();
       const projectPath = resolve(__dirname, '../../')
       console.log("Project Path ", projectPath);
-      const pdfPath = projectPath + '/public/uploads/books/bookpdf/' + bookName; 
-      // console.log("I got here");
-      // console.log("pdf path is ", pdfPath);
+      const pdfPath = projectPath + '/public/uploads/books/bookpdf/' + bookName;
       res.download(pdfPath, `${bookName}`);
-      // const pdfBuffer = fs.readFileSync(pdfPath);
-      // fs.readFile(pdfPath, (err, data) => {
-      //   if (err) {
-      //     console.error('Error reading PDF file:', err);
-      //     return res.status(500).send('Error while serving the PDF file');
-      //   }
-      //   console.log("I got here too");
-        
-      //   res.setHeader('Content-Disposition', 'attachment; filename="my-file.pdf"');
-      //   res.setHeader('Content-Type', 'application/pdf');
-      //   res.send(data);
-      // });
     } catch (error) {
       res.status(500).send('Error while serving the PDF file');
     }

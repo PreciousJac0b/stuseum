@@ -16,12 +16,12 @@ export class StudyController {
         link: 'flashcards',
       },
       {
-        title: 'Flashcards',
+        title: 'Pomodoro',
         icon: 'flashcard.png',
         link: 'flashcard',
       },
       {
-        title: 'Flashcards',
+        title: 'Spaced Repetition',
         icon: '',
         link: 'flashcards',
       },
@@ -51,9 +51,6 @@ export class StudyController {
     const newCard = new FlashCard();
     newCard.question = body.question;
     newCard.answer = body.answer;
-    console.log("first:", newCard.getNumberOfFlashcards())
-    newCard.increaseFlashcards();
-    console.log("Second", newCard.getNumberOfFlashcards())
     await this.studyService.createFlashCard(newCard);
     res.redirect(req.get('referer'));
   }

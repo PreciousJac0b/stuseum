@@ -1,10 +1,7 @@
 {{#> user}}
   {{#*inline "content"}}
     <link rel="stylesheet" href="/css/search/search.css">
-    <h2>Stuseum - Students' Museum</h2>
-    <p>A hub for all things book!</p>
-
-    <p>----------------------------------------------</p>
+    <h2 class="search">Search 🪶</h2>
     {{#if viewData.redirect}}
       <script>
         window.location.href = "{{viewData.redirectUrl}}"
@@ -36,6 +33,10 @@
               </form>
             </div>
           {{/each}}
+        </div>
+        {{else}}
+        <div class="no-book">
+          <p>Not available. 😟☹️</p>
         </div>
       {{/if}}
     {{/if}}

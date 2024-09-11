@@ -1,8 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('flashcard')
 export class FlashCard {
-  numberOfFlashcards: number = 0;
+  private static numberOfFlashcards: number = 0;
 
 
   @PrimaryGeneratedColumn()
@@ -17,15 +17,25 @@ export class FlashCard {
   @Column({ default: 0 })
   score: number;
 
+  // holds the same number as the number of flashcards in the table for easy access by an instance
+  @Column({ default: 0 })
+  sharedNumberOfFlashCard: number;
+
+  @BeforeInsert()
+  incrementFlashCard() {
+    FlashCard.numberOfFlashcards++;
+    this.sharedNumberOfFlashCard = FlashCard.numberOfFlashcards;
+  }
+
   getNumberOfFlashcards(): number {
-    return this.numberOfFlashcards;
+    return FlashCard.numberOfFlashcards;
   }
 
   setNumberOfFlashcards(value: number) {
-    this.numberOfFlashcards = value;
+    FlashCard.numberOfFlashcards = value;
   }
 
-  increaseFlashcards() {
-    this.numberOfFlashcards++;
-  }
+  // increaseFlashcards() {
+  //   FlashCard.numberOfFlashcards++;
+  // }
 }

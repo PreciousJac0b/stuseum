@@ -1,33 +1,46 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
-import * as bcrypt from 'bcrypt';
 import { LoginDTO } from './dtos/login.dto';
+import * as bcrypt from 'bcrypt';
+import { User } from 'src/models/user.entity';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(private usersService: UsersService, private jwtService: JwtService) {}
 
-  async login(loginDTO: LoginDTO): Promise<{ accessToken: string }> {
-    const user = await this.usersService.findOne(loginDTO);
+  async authenticate(loginDTO: LoginDTO) {
+    const user = await this.validateUser(loginDTO);
 
-    if (user) {
-      const passwordMatched = await bcrypt.compare(loginDTO.password, user.password);
+    return this.signIn(user);
+  }
 
-      if (passwordMatched) {
-        const {password, ...userResult} = user;
-        console.log("Password: ", password);
-        const payload = { email: userResult.email, sub: userResult.id }
-        console.log(payload);
-        const payload2 = this.jwtService.sign(payload);
-        console.log(payload2);
-        return {
-          accessToken: payload2,
-        };
-      } else {
-        throw new UnauthorizedException("Password does not match");
-      }
+
+  async validateUser(loginDTO: LoginDTO) {
+    const user =  await this.usersService.findOne(loginDTO);
+
+    const passwordMatched = await bcrypt.compare(loginDTO.password, user.password);
+
+
+    if (passwordMatched) {
+      const {password, confirmPassword, ...userResult} = user;
+
+      return userResult;
+    } else {
+      throw new UnauthorizedException("Password Doesn't Match")
     }
-    throw new UnauthorizedException("User does not exist");
+
+  }
+
+
+  async signIn(user: Partial<User>) {
+    const tokenPayload = {
+      sub: user.id,
+      ...user,
+    }
+
+    const accessToken = await this.jwtService.signAsync(tokenPayload);
+
+    return {accessToken, user};
   }
 }

@@ -95,7 +95,7 @@ export class AdminBooksController {
   }
 
   @Get('/:id')
-  @Render('admin/books/editt')
+  @Render('admin/books/edit')
   async edit(@Param('id', ParseIntPipe) id: number) {
     const book = await this.booksService.findBookById(id);
     const viewData = {};

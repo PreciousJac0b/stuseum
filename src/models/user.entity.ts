@@ -1,6 +1,7 @@
 import { Exclude } from 'class-transformer';
 import { IsEmail } from 'class-validator';
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Book } from './book.entity';
 
 @Entity("users")
 export class User {
@@ -49,6 +50,26 @@ export class User {
 
   @Column({ nullable: true })
   fineAmount: number;
+
+  @OneToMany(() => Book, (book) => book.user)
+  books: Book[];
+
+  @ManyToMany(() => User, (user) => user.followers)
+  @JoinTable({
+    name: 'user_following',
+    joinColumn: {
+      name: 'follower_id',
+      referencedColumnName: 'id'
+    },
+    inverseJoinColumn: {
+      name: 'following_id',
+      referencedColumnName: 'id'
+    }
+  })
+  following: User[];
+
+  @ManyToMany(() => User, (user) => user.following)
+  followers: User[];
 
   getId(): number {
     return this.id;
@@ -152,6 +173,14 @@ export class User {
 
   setDateJoined(dateJoined: Date) {
     this.dateJoined = dateJoined;
+  }
+
+  getBooks() {
+    return this.books;
+  }
+
+  setBooks(books: Book[]) {
+    this.books = books;
   }
 
   
