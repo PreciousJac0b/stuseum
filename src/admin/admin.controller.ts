@@ -1,11 +1,17 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Render, Req, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Render, Req, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from 'src/models/user.entity';
 import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcrypt';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Roles } from 'src/decorators/roles.decorator';
+
 
 @Controller('admin')
+@UseGuards(AuthGuard, RolesGuard)
+@Roles('admin')
 @ApiTags('admin-users')
 export class AdminController {
   constructor(private readonly usersService: UsersService) {}
@@ -21,6 +27,8 @@ export class AdminController {
   }
 
   @Get('users')
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('admin')
   @Render('admin/users/users')
   async users() {
     const viewData = {};
@@ -79,8 +87,8 @@ export class AdminController {
     user.setProfession(body.profession);
     user.setRole(body.role);
     user.setEmail(body.email);
-    const hash = await bcrypt.hash(body.password, 10);
-    user.setPassword(hash);
+    // const hash = await bcrypt.hash(body.password, 10);
+    user.setPassword(body.password);
     user.setMobileNumber(body.mobile);
     await this.usersService.createOrUpdate(user);
     return res.redirect('/admin/users/');

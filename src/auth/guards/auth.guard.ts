@@ -38,7 +38,7 @@ export class AuthGuard implements CanActivate {
       }
       return true;
     } catch(error) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException("Invalid JWT token");
     }
     return true;
   }

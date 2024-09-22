@@ -8,6 +8,8 @@ import { StudyController } from './study/study.controller';
 import { StudyModule } from './study/study.module';
 import { CommentModule } from './comment/comment.module';
 import { AuthModule } from './auth/auth.module';
+import { APP_FILTER } from '@nestjs/core';
+import { HttpErrorFilter } from './filters/http-exception.filter';
 
 @Module({
   imports: [AuthModule, UsersModule, AdminModule, TypeOrmModule.forRoot({
@@ -23,6 +25,9 @@ import { AuthModule } from './auth/auth.module';
     "synchronize": true
   }), BooksModule, StudyModule, CommentModule],
   controllers: [AppController],
-  providers: [],
+  providers: [{
+    provide: APP_FILTER,
+    useClass: HttpErrorFilter,
+  }],
 })
 export class AppModule {}

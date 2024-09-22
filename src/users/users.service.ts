@@ -14,10 +14,17 @@ export class UsersService {
   ) {}
   
   async createOrUpdate(user: User): Promise<Partial<User>> {
+    // Update password doesn't work properly. It raises duplicate key error.
+    console.log("User password: ", user.getPassword());
     const hash = await bcrypt.hash(user.getPassword(), 10);
+    console.log("hash: ", hash);
     user.setPassword(hash);
+    console.log("User: ", user);
+    
     const newUser =  await this.usersRepository.save(user);
 
+    console.log("newUser: ", newUser);
+    
     const { password, ...userResult } = newUser;
 
     return userResult;

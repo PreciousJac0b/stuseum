@@ -10,6 +10,7 @@ import {
   Res,
   UploadedFile,
   UploadedFiles,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express';
@@ -20,8 +21,13 @@ import { diskStorage } from 'multer';
 import * as path from 'path';
 import * as fs from 'fs';
 import { ApiTags } from '@nestjs/swagger';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { Roles } from 'src/decorators/roles.decorator';
 
 @Controller('admin/books')
+@UseGuards(AuthGuard, RolesGuard)
+@Roles('admin')
 @ApiTags('admin-books')
 export class AdminBooksController {
   constructor(private readonly booksService: BooksService) {}
