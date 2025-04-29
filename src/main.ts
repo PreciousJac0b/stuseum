@@ -44,6 +44,8 @@ async function bootstrap() {
     next();
   });
 
-  await app.listen(3000);
+  const port = process.env.PORT;
+  const hostname = '0.0.0.0';
+  await app.listen(port, hostname);
 }
 bootstrap();
